@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply min-h-screen;
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-ink-light rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-ink-muted;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-surface-card rounded-2xl border border-surface-tertiary shadow-sm;
+  }
+
+  .btn-primary {
+    @apply bg-meridian-600 text-white px-5 py-2.5 rounded-xl font-medium
+           hover:bg-meridian-700 active:bg-meridian-800
+           transition-colors duration-150;
+  }
+
+  .btn-secondary {
+    @apply bg-surface-tertiary text-ink-primary px-5 py-2.5 rounded-xl font-medium
+           hover:bg-meridian-100 active:bg-meridian-200
+           transition-colors duration-150;
+  }
+
+  .input {
+    @apply w-full px-4 py-3 rounded-xl border border-surface-tertiary
+           bg-surface-primary text-ink-primary placeholder-ink-muted
+           focus:outline-none focus:ring-2 focus:ring-meridian-400 focus:border-transparent
+           transition-all duration-150;
+  }
+}
