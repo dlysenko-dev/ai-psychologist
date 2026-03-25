@@ -1,34 +1,67 @@
-# AI Psychologist
+# AI Psychologist — RAG-powered Cognitive Therapy App
 
-Персональный AI-психолог. Веб-приложение для работы с финансовыми блоками, паттернами самосаботажа и когнитивными искажениями у предпринимателей.
+Full-stack веб-приложение: AI-психолог для работы с когнитивными искажениями, финансовыми блоками и паттернами самосаботажа.
 
-Однопользовательский инструмент, не SaaS.
+**RAG на pgvector + Claude. React + FastAPI. Telegram Mini App.**
+
+## Что делает
+
+- Ведёт терапевтические диалоги на основе КПТ (когнитивно-поведенческая терапия)
+- RAG: ищет релевантные знания из базы (pgvector, 384-мерные эмбеддинги)
+- Отслеживает прогресс, инсайты и паттерны пользователя
+- Telegram Mini App для мобильного доступа
 
 ## Стек
-- **Backend:** FastAPI + PostgreSQL + pgvector + SQLAlchemy async
-- **Frontend:** React 18 + TypeScript + Vite + TailwindCSS + Zustand + React Query
-- **AI:** Claude Opus 4.6 (primary), Sonnet 4.5 (fallback)
-- **RAG:** sentence-transformers MiniLM + pgvector (384 dimensions)
 
-## Структура
+| Компонент | Технология |
+|-----------|-----------|
+| Backend | FastAPI, SQLAlchemy 2.0 (async), asyncpg |
+| Frontend | React 18, TypeScript, Vite, Tailwind CSS, Zustand |
+| AI | Claude Opus 4.6 (primary), Sonnet 4.5 (fallback) |
+| RAG | pgvector + sentence-transformers MiniLM (384 dims) |
+| БД | PostgreSQL + pgvector extension |
+| Auth | JWT (python-jose), bcrypt |
+| Миграции | Alembic |
+| Telegram | Telegram Bot API + Mini App |
+
+## Архитектура
+
 ```
-backend/        — FastAPI API (порт 8010)
-frontend/       — React SPA (порт 3010)
-knowledge_base/ — Базы знаний для RAG
-bot.py          — Telegram бот
-scripts/        — Утилиты
+backend/
+├── main.py          — FastAPI app (порт 8010)
+├── config.py        — Pydantic Settings (.env)
+├── models.py        — SQLAlchemy модели (Users, Sessions, Insights)
+├── api/             — REST endpoints
+├── services/        — AI, RAG, session management
+└── knowledge/       — Knowledge base для RAG
+
+frontend/
+├── src/
+│   ├── components/  — React компоненты
+│   ├── stores/      — Zustand state management
+│   ├── api/         — React Query + axios
+│   └── pages/       — Роутинг
+└── vite.config.ts
+
+bot.py               — Telegram бот
+knowledge_base/      — Markdown-документы для RAG индексации
 ```
 
 ## Запуск
-```bash
-pip install -r requirements.txt
 
+```bash
 # Backend
-cd backend && python -m uvicorn main:app --port 8010 --reload
+cd backend
+pip install -r requirements.txt
+cp .env.example .env  # заполнить переменные
+python -m uvicorn main:app --port 8010 --reload
 
 # Frontend
-cd frontend && npm install && npm run dev
+cd frontend
+npm install
+npm run dev  # порт 3010
 ```
 
-## Статус
-Active
+## Автор
+
+Данил Лысенко — [@Daniel_Lysenko33](https://t.me/Daniel_Lysenko33)

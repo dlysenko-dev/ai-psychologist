@@ -6,7 +6,7 @@ from pydantic import Field
 class Settings(BaseSettings):
     # Database
     database_url: str = Field(
-        default="postgresql+asyncpg://postgres:password@localhost:5432/ai_psychologist",
+        default="postgresql+asyncpg://postgres:YOUR_PASSWORD@localhost:5432/ai_psychologist",
         env="DATABASE_URL",
     )
 
@@ -23,10 +23,10 @@ class Settings(BaseSettings):
     # Telegram
     telegram_bot_token: str = Field(default="", env="TELEGRAM_BOT_TOKEN")
     mini_app_url: str = Field(default="", env="MINI_APP_URL")
-    admin_telegram_id: int = Field(default=756877849, env="ADMIN_TELEGRAM_ID")
+    admin_telegram_id: int = Field(default=0, env="ADMIN_TELEGRAM_ID")
 
     # Auth
-    app_secret_key: str = Field(default="change-me", env="APP_SECRET_KEY")
+    app_secret_key: str = Field(default="YOUR_SECRET_KEY", env="APP_SECRET_KEY")
 
     # Server
     backend_port: int = Field(default=8010, env="BACKEND_PORT")
