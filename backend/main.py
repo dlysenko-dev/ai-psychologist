@@ -39,13 +39,19 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# CORS — allow Telegram WebApp and local dev
+# CORS — Telegram WebApp and local dev
+CORS_ORIGINS = os.getenv("CORS_ORIGINS", "").split(",") if os.getenv("CORS_ORIGINS") else [
+    "http://localhost:3010",
+    "http://localhost:5173",
+    "http://127.0.0.1:3010",
+    "https://web.telegram.org",
+]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=CORS_ORIGINS,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["Authorization", "Content-Type"],
 )
 
 # Mount API routers
